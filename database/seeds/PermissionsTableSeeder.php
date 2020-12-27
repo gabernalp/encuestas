@@ -206,6 +206,26 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 50,
+                'title' => 'prize_code_create',
+            ],
+            [
+                'id'    => 51,
+                'title' => 'prize_code_edit',
+            ],
+            [
+                'id'    => 52,
+                'title' => 'prize_code_show',
+            ],
+            [
+                'id'    => 53,
+                'title' => 'prize_code_delete',
+            ],
+            [
+                'id'    => 54,
+                'title' => 'prize_code_access',
+            ],
+            [
+                'id'    => 55,
                 'title' => 'profile_password_edit',
             ],
         ];

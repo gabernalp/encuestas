@@ -27,4 +27,7 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
 
     // Vet Answers
     Route::apiResource('vet-answers', 'VetAnswersApiController');
+
+    // Prize Codes
+    Route::apiResource('prize-codes', 'PrizeCodesApiController');
 });

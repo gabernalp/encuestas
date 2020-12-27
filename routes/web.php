@@ -57,6 +57,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     // Vet Answers
     Route::delete('vet-answers/destroy', 'VetAnswersController@massDestroy')->name('vet-answers.massDestroy');
     Route::resource('vet-answers', 'VetAnswersController');
+
+    // Prize Codes
+    Route::delete('prize-codes/destroy', 'PrizeCodesController@massDestroy')->name('prize-codes.massDestroy');
+    Route::post('prize-codes/parse-csv-import', 'PrizeCodesController@parseCsvImport')->name('prize-codes.parseCsvImport');
+    Route::post('prize-codes/process-csv-import', 'PrizeCodesController@processCsvImport')->name('prize-codes.processCsvImport');
+    Route::resource('prize-codes', 'PrizeCodesController');
 });
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {
 // Change password
