@@ -84,7 +84,7 @@
                     </li>
                 @endcan
                 @can('encuestum_access')
-                    <li class="nav-item has-treeview {{ request()->is("admin/agentes-educativos*") ? "menu-open" : "" }} {{ request()->is("admin/cats-owners-anwers*") ? "menu-open" : "" }} {{ request()->is("admin/dogs-owners-anwers*") ? "menu-open" : "" }} {{ request()->is("admin/vet-answers*") ? "menu-open" : "" }}">
+                    <li class="nav-item has-treeview {{ request()->is("admin/agentes-educativos*") ? "menu-open" : "" }} {{ request()->is("admin/cats-owners-anwers*") ? "menu-open" : "" }} {{ request()->is("admin/dogs-owners-anwers*") ? "menu-open" : "" }} {{ request()->is("admin/vet-answers*") ? "menu-open" : "" }} {{ request()->is("admin/prize-codes*") ? "menu-open" : "" }}">
                         <a class="nav-link nav-dropdown-toggle" href="#">
                             <i class="fa-fw nav-icon fas fa-list">
 
@@ -139,6 +139,18 @@
                                         </i>
                                         <p>
                                             {{ trans('cruds.vetAnswer.title') }}
+                                        </p>
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('prize_code_access')
+                                <li class="nav-item">
+                                    <a href="{{ route("admin.prize-codes.index") }}" class="nav-link {{ request()->is("admin/prize-codes") || request()->is("admin/prize-codes/*") ? "active" : "" }}">
+                                        <i class="fa-fw nav-icon far fa-list-alt">
+
+                                        </i>
+                                        <p>
+                                            {{ trans('cruds.prizeCode.title') }}
                                         </p>
                                     </a>
                                 </li>
