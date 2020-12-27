@@ -19,76 +19,30 @@
     </div>
 
     <div class="card-body">
-        <div class="table-responsive">
-            <table class=" table table-bordered table-striped table-hover datatable datatable-Ciudade">
-                <thead>
-                    <tr>
-                        <th width="10">
+        <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-Ciudade">
+            <thead>
+                <tr>
+                    <th width="10">
 
-                        </th>
-                        <th>
-                            {{ trans('cruds.ciudade.fields.id') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.ciudade.fields.name') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.ciudade.fields.code') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.ciudade.fields.departamento') }}
-                        </th>
-                        <th>
-                            &nbsp;
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($ciudades as $key => $ciudade)
-                        <tr data-entry-id="{{ $ciudade->id }}">
-                            <td>
-
-                            </td>
-                            <td>
-                                {{ $ciudade->id ?? '' }}
-                            </td>
-                            <td>
-                                {{ $ciudade->name ?? '' }}
-                            </td>
-                            <td>
-                                {{ $ciudade->code ?? '' }}
-                            </td>
-                            <td>
-                                {{ $ciudade->departamento->name ?? '' }}
-                            </td>
-                            <td>
-                                @can('ciudade_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.ciudades.show', $ciudade->id) }}">
-                                        {{ trans('global.view') }}
-                                    </a>
-                                @endcan
-
-                                @can('ciudade_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.ciudades.edit', $ciudade->id) }}">
-                                        {{ trans('global.edit') }}
-                                    </a>
-                                @endcan
-
-                                @can('ciudade_delete')
-                                    <form action="{{ route('admin.ciudades.destroy', $ciudade->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
-                                    </form>
-                                @endcan
-
-                            </td>
-
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
+                    </th>
+                    <th>
+                        {{ trans('cruds.ciudade.fields.id') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.ciudade.fields.name') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.ciudade.fields.code') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.ciudade.fields.departamento') }}
+                    </th>
+                    <th>
+                        &nbsp;
+                    </th>
+                </tr>
+            </thead>
+        </table>
     </div>
 </div>
 
@@ -101,14 +55,14 @@
     $(function () {
   let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
 @can('ciudade_delete')
-  let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
+  let deleteButtonTrans = '{{ trans('global.datatables.delete') }}';
   let deleteButton = {
     text: deleteButtonTrans,
     url: "{{ route('admin.ciudades.massDestroy') }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
-      var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
-          return $(entry).data('entry-id')
+      var ids = $.map(dt.rows({ selected: true }).data(), function (entry) {
+          return entry.id
       });
 
       if (ids.length === 0) {
@@ -130,18 +84,32 @@
   dtButtons.push(deleteButton)
 @endcan
 
-  $.extend(true, $.fn.dataTable.defaults, {
+  let dtOverrideGlobals = {
+    buttons: dtButtons,
+    processing: true,
+    serverSide: true,
+    retrieve: true,
+    aaSorting: [],
+    ajax: "{{ route('admin.ciudades.index') }}",
+    columns: [
+      { data: 'placeholder', name: 'placeholder' },
+{ data: 'id', name: 'id' },
+{ data: 'name', name: 'name' },
+{ data: 'code', name: 'code' },
+{ data: 'departamento_name', name: 'departamento.name' },
+{ data: 'actions', name: '{{ trans('global.actions') }}' }
+    ],
     orderCellsTop: true,
     order: [[ 1, 'desc' ]],
     pageLength: 100,
-  });
-  let table = $('.datatable-Ciudade:not(.ajaxTable)').DataTable({ buttons: dtButtons })
+  };
+  let table = $('.datatable-Ciudade').DataTable(dtOverrideGlobals);
   $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();
   });
   
-})
+});
 
 </script>
 @endsection
