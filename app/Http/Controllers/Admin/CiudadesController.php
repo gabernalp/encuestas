@@ -12,18 +12,57 @@ use App\Http\Requests\UpdateCiudadeRequest;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Yajra\DataTables\Facades\DataTables;
 
 class CiudadesController extends Controller
 {
     use CsvImportTrait;
 
-    public function index()
+    public function index(Request $request)
     {
         abort_if(Gate::denies('ciudade_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $ciudades = Ciudade::with(['departamento'])->get();
+        if ($request->ajax()) {
+            $query = Ciudade::with(['departamento'])->select(sprintf('%s.*', (new Ciudade)->table));
+            $table = Datatables::of($query);
 
-        return view('admin.ciudades.index', compact('ciudades'));
+            $table->addColumn('placeholder', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
+
+            $table->editColumn('actions', function ($row) {
+                $viewGate      = 'ciudade_show';
+                $editGate      = 'ciudade_edit';
+                $deleteGate    = 'ciudade_delete';
+                $crudRoutePart = 'ciudades';
+
+                return view('partials.datatablesActions', compact(
+                    'viewGate',
+                    'editGate',
+                    'deleteGate',
+                    'crudRoutePart',
+                    'row'
+                ));
+            });
+
+            $table->editColumn('id', function ($row) {
+                return $row->id ? $row->id : "";
+            });
+            $table->editColumn('name', function ($row) {
+                return $row->name ? $row->name : "";
+            });
+            $table->editColumn('code', function ($row) {
+                return $row->code ? $row->code : "";
+            });
+            $table->addColumn('departamento_name', function ($row) {
+                return $row->departamento ? $row->departamento->name : '';
+            });
+
+            $table->rawColumns(['actions', 'placeholder', 'departamento']);
+
+            return $table->make(true);
+        }
+
+        return view('admin.ciudades.index');
     }
 
     public function create()
