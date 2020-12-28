@@ -73,6 +73,14 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.vetAnswer.fields.email') }}
+                        </th>
+                        <td>
+                            {{ $vetAnswer->email }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.vetAnswer.fields.pet_nutrition_question') }}
                         </th>
                         <td>

@@ -43,6 +43,9 @@
                         {{ trans('cruds.vetAnswer.fields.city') }}
                     </th>
                     <th>
+                        {{ trans('cruds.vetAnswer.fields.email') }}
+                    </th>
+                    <th>
                         {{ trans('cruds.vetAnswer.fields.pet_nutrition_question') }}
                     </th>
                     <th>
@@ -192,6 +195,7 @@
 { data: 'pet_shelters', name: 'pet_shelters' },
 { data: 'department_name', name: 'department.name' },
 { data: 'city_name', name: 'city.name' },
+{ data: 'email', name: 'email' },
 { data: 'pet_nutrition_question', name: 'pet_nutrition_question' },
 { data: 'recomendations_applied', name: 'recomendations_applied' },
 { data: 'percent_apply_diet', name: 'percent_apply_diet' },

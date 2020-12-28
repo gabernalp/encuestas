@@ -43,6 +43,9 @@
                                 {{ trans('cruds.vetAnswer.fields.city') }}
                             </th>
                             <th>
+                                {{ trans('cruds.vetAnswer.fields.email') }}
+                            </th>
+                            <th>
                                 {{ trans('cruds.vetAnswer.fields.pet_nutrition_question') }}
                             </th>
                             <th>
@@ -160,6 +163,9 @@
                                 </td>
                                 <td>
                                     {{ $vetAnswer->city->name ?? '' }}
+                                </td>
+                                <td>
+                                    {{ $vetAnswer->email ?? '' }}
                                 </td>
                                 <td>
                                     {{ App\VetAnswer::PET_NUTRITION_QUESTION_RADIO[$vetAnswer->pet_nutrition_question] ?? '' }}

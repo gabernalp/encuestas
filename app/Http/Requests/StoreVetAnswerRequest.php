@@ -41,6 +41,9 @@ class StoreVetAnswerRequest extends FormRequest
                 'required',
                 'integer',
             ],
+            'email'                           => [
+                'required',
+            ],
             'pet_nutrition_question'          => [
                 'required',
             ],

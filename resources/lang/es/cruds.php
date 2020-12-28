@@ -453,6 +453,8 @@ return [
             'heard_about_pfi_helper'                 => ' ',
             'ip'                                     => 'Ip',
             'ip_helper'                              => ' ',
+            'email'                                  => 'Email',
+            'email_helper'                           => ' ',
         ],
     ],
     'prizeCode'        => [
