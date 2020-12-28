@@ -65,6 +65,9 @@ class VetAnswersController extends Controller
                 return $row->city ? $row->city->name : '';
             });
 
+            $table->editColumn('email', function ($row) {
+                return $row->email ? $row->email : "";
+            });
             $table->editColumn('pet_nutrition_question', function ($row) {
                 return $row->pet_nutrition_question ? VetAnswer::PET_NUTRITION_QUESTION_RADIO[$row->pet_nutrition_question] : '';
             });

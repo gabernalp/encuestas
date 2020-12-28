@@ -66,6 +66,14 @@
                 <span class="help-block">{{ trans('cruds.vetAnswer.fields.city_helper') }}</span>
             </div>
             <div class="form-group">
+                <label class="required" for="email">{{ trans('cruds.vetAnswer.fields.email') }}</label>
+                <input class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" type="email" name="email" id="email" value="{{ old('email') }}" required>
+                @if($errors->has('email'))
+                    <span class="text-danger">{{ $errors->first('email') }}</span>
+                @endif
+                <span class="help-block">{{ trans('cruds.vetAnswer.fields.email_helper') }}</span>
+            </div>
+            <div class="form-group">
                 <label class="required">{{ trans('cruds.vetAnswer.fields.pet_nutrition_question') }}</label>
                 @foreach(App\VetAnswer::PET_NUTRITION_QUESTION_RADIO as $key => $label)
                     <div class="form-check {{ $errors->has('pet_nutrition_question') ? 'is-invalid' : '' }}">

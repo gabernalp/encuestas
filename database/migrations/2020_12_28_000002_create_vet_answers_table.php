@@ -43,6 +43,7 @@ class CreateVetAnswersTable extends Migration
             $table->string('frecuency_education');
             $table->string('heard_about_pfi');
             $table->string('ip')->nullable();
+            $table->string('email');
             $table->timestamps();
             $table->softDeletes();
         });

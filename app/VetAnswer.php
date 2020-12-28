@@ -77,6 +77,7 @@ class VetAnswer extends Model
         'pet_shelters',
         'department_id',
         'city_id',
+        'email',
         'pet_nutrition_question',
         'recomendations_applied',
         'percent_apply_diet',
